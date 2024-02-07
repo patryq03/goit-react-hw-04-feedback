@@ -17,7 +17,7 @@ export default function App() {
       setBad(bad => bad + 1);
     }
   };
-
+  
   const countTotalFeedback = () => {
     return good + neutral + bad;
   };
