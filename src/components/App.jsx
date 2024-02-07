@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Feedback from './feedback/Feedback';
 import Statistics from './stats/Stats';
 import Notification from './Noti/Notification';
@@ -9,11 +9,11 @@ export default function App() {
   const [bad, setBad] = useState(0);
 
   const onLeaveFeedback = state => {
-    if (state.good === 'good') {
+    if (state === 'good') {
       setGood(good => good + 1);
-    } else if (state.nautral === 'neutral') {
+    } else if (state === 'neutral') {
       setNeutral(neutral => neutral + 1);
-    } else if (state.bad === 'bad') {
+    } else if (state === 'bad') {
       setBad(bad => bad + 1);
     }
   };
@@ -21,16 +21,18 @@ export default function App() {
   const countTotalFeedback = () => {
     return good + neutral + bad;
   };
+
   const total = countTotalFeedback();
 
   const countPositiveFeedbackPercentage = () => {
-    return Math.trunc((good / total) * 100);
+    return Math.round((good / total) * 100) || 0;
   };
+
   const btnNames = Object.keys({ good, neutral, bad });
   const totalPercentage = countPositiveFeedbackPercentage();
   return (
     <div className="App">
-        <Feedback option={btnNames} onLeaveFeedback={onLeaveFeedback} />
+        <Feedback options={btnNames} onLeaveFeedback={onLeaveFeedback} />
           <Notification message="No feedback given" />
           <Statistics
             good={good}
